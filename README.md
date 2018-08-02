@@ -1,2 +1,2 @@
-# -vika
+# vika
 webpack

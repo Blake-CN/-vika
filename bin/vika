@@ -1,0 +1,5 @@
+#!/usr/bin/env node
+
+const yarg = require('yargs');
+
+console.log('11111');
