@@ -2,4 +2,33 @@
 
 const yarg = require('yargs');
 
-console.log('11111');
+const lanucher = (options) => {
+  require('../index.js')(options);
+};
+// eslint-disable-next-line
+yarg
+  .usage('$0 <cmd> [args]')
+  .command('build [page]', '构建[文件夹]', (yargs) => {
+    yargs.option('page', {
+      type: 'string',
+      default: 'all',
+      describe: 'name of the page, eg:index',
+    });
+    yargs.option('config', {
+      type: 'string',
+      default: '',
+      describe: 'Use the specified config',
+    });
+  }, (argv) => {
+    lanucher(Object.assign({
+      action: 'build',
+      config_file: argv.config,
+    }, argv));
+  })
+  .example('$0 build index', 'build index page with development mode')
+  .help('h')
+  .alias('h', 'help')
+  .version(require('../package.json').version)
+  .epilog('(#^.^#)@Blake')
+  .alias('v', 'version')
+  .argv;

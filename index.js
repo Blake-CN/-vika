@@ -4,8 +4,10 @@ const Table = require('cli-table');
 const colors = require('colors');
 const readlineSync = require('readline-sync');
 
+const util = require('./src/utils');
+
 // __dirname 是被执行的js 文件的地址
-const RootPath = path.resolve(__dirname);
+const _path = path.resolve(__dirname);
 // 是当前执行node命令时候的文件夹地址
 const RunPath = process.cwd();
 
@@ -21,3 +23,8 @@ colors.setTheme({
   debug: 'blue',
   error: 'red',
 });
+
+module.exports = (option) => {
+  util.print('欢迎'.info);
+  console.log(option);
+};
