@@ -1,0 +1,22 @@
+{
+  "name": "vika",
+  "version": "1.0.0",
+  "description": "webpack",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Blake-CN/vika.git"
+  },
+  "keywords": [
+    "vika"
+  ],
+  "author": "Blake",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Blake-CN/vika/issues"
+  },
+  "homepage": "https://github.com/Blake-CN/vika#readme"
+}
