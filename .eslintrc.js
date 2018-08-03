@@ -1,5 +1,5 @@
 module.exports = {
-  "extends": "airbnb-base",
+  "extends": "airbnb",
   "env": {
     node: true,
     es6: true,
@@ -15,5 +15,6 @@ module.exports = {
     'global-require': 0,
     'no-console': 0,
     'prefer-promise-reject-errors': 0,
+    'comma-dangle': 0
   }
 };

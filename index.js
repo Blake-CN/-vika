@@ -21,10 +21,29 @@ colors.setTheme({
   help: 'cyan',
   warn: 'yellow',
   debug: 'blue',
-  error: 'red',
+  error: 'red'
 });
 
 module.exports = (option) => {
-  util.print('欢迎'.info);
+  util.print('begin(◕ᴗ◕✿)'.info);
+  util.print('Using vika from', c => c.magenta(_path));
+  util.print('Current directory', c => c.magenta(RunPath));
+  util.print('Start working...'.info);
   console.log(option);
+  const projectPath = RunPath;
+  const workingPath = projectPath;
+  // let appSystem = 'front';
+  // const arrRunPath = RunPath.split(path.sep);
+
+  // if (!projectPath) {
+  //   util.print(c => c.red('Can`t found working path. Please make sure that you are in the correct directory!'));
+  //   return;
+  // }
+  // process.chdir(workingPath);
+  try {
+    process.chdir(workingPath);
+    util.print('Change working path to', c => c.magenta(workingPath));
+  } catch (err) {
+    console.error(`chdir: ${err}`);
+  }
 };
