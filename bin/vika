@@ -8,11 +8,11 @@ const lanucher = (options) => {
 // eslint-disable-next-line
 yarg
   .usage('$0 <cmd> [args]')
-  .command('build [page]', '构建[文件夹]', (yargs) => {
+  .command('work [page]', '构建[文件夹]', (yargs) => {
     yargs.option('page', {
       type: 'string',
       default: 'all',
-      describe: 'name of the page, eg:index',
+      describe: 'name of the dir, eg:index',
     });
     yargs.option('config', {
       type: 'string',
@@ -21,11 +21,11 @@ yarg
     });
   }, (argv) => {
     lanucher(Object.assign({
-      action: 'build',
+      action: 'work',
       config_file: argv.config,
     }, argv));
   })
-  .example('$0 build index', 'build index page with development mode')
+  .example('$0 work index', 'build index dir with development mode')
   .help('h')
   .alias('h', 'help')
   .version(require('../package.json').version)
