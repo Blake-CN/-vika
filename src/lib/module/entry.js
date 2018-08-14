@@ -5,14 +5,14 @@ const path = require('path');
 const config = require('../index');
 
 const entry = {};
+
 config.pages.forEach((page) => {
   entry[page] = [path.resolve(
-    config.working_path,
+    config.workingPath,
     'src',
     page,
-    'static',
-    page + '.js',
+    page + '.js'
   )];
 });
-console.log(entry);
+
 module.exports = entry;
