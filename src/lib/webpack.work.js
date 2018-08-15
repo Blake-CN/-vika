@@ -31,10 +31,13 @@ const webpackConf = {
   },
   module: {
     rules: [{
-      test: /\.css$/,
-      use: [{
-        loader: MiniCssExtractPlugin.loader
-      }, 'css-loader']
+      test: /\.(le|c)ss$/,
+      use: [
+        // config.NODE_ENV === 'development' ? 'style-loader' : MiniCssExtractPlugin.loader,
+        MiniCssExtractPlugin.loader,
+        'css-loader',
+        'postcss-loader'
+      ]
     }, {
       test: /\.(png|jpe?g|gif|svg)$/,
       use: [{
@@ -49,14 +52,18 @@ const webpackConf = {
     }]
   },
   plugins: [
+    // css导出成独立文件
     new MiniCssExtractPlugin({
       filename: 'css/[name].css'
     }),
-  ]
+  ],
+  // stats: {
+  //   children: false // 是否显示子任务log
+  // }
 };
 
 webpackConf.entry = entry;
-
+// 清空输出文件夹
 webpackConf.plugins.unshift(
   new CleanWebpackPlugin([path.join(config.workingPath, config.development_dist)], {
     root: config.workingPath,
@@ -68,8 +75,9 @@ webpackConf.plugins.unshift(
 config.pages.forEach((page) => {
   webpackConf.plugins.push(new HtmlWebpackPlugin({
     template: path.join(config.workingPath, 'src', page, page + '.html'),
-    filename: `${page}.shtml`,
-    inject: 'head' // 链接插入位置
+    filename: `${page}.html`,
+    chunks: [page],
+    inject: true // js链接插入位置
   }));
 });
 
