@@ -16,7 +16,8 @@ const webpackConf = {
   target: 'web',
   output: {
     path: path.join(config.workingPath, config.development_dist),
-    filename: '[name].js'
+    filename: 'js/[name].js',
+    publicPath: '/'
   },
   resolve: {
     modules: [path.join(config.root, 'node_modules'), path.join(config.workingPath, 'node_modules'), 'node_modules'],
@@ -43,6 +44,8 @@ const webpackConf = {
       use: [{
         loader: 'url-loader',
         options: {
+          fallback: 'file-loader',
+          limit: 8192,
           name: 'img/[name].[ext]'
         }
       }]
