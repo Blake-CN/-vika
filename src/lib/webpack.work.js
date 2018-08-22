@@ -25,10 +25,19 @@ const webpackConf = {
     //   vue$: config.NODE_ENV === 'production' ? 'vue/dist/vue.min.js' : 'vue/dist/vue.js',
     // },
     // extensions: ['.wasm', '.mjs', '.js', '.json', '.vue'],
-    symlinks: true
+    symlinks: false
   },
   resolveLoader: {
     modules: [path.join(config.root, 'node_modules'), path.join(config.workingPath, 'node_modules'), 'node_modules']
+  },
+  devServer: {
+    contentBase: path.join(config.workingPath, config.development_dist),
+    compress: true,
+    port: 9000,
+    historyApiFallback: true, // 任意的 404 响应都被替代为 index.html
+    inline: true,
+    host: '0.0.0.0' // 服务器外部可访问
+    // open: true
   },
   module: {
     rules: [{

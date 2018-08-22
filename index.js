@@ -74,6 +74,8 @@ module.exports = (option) => {
   util.print('Starting task', c => c.magenta(lib.action + ' ' + lib.page));
   // webpack可执行文件
   const webpackBin = path.join(__dirname, 'node_modules', '.bin/webpack');
+  // 本地server模式
+  const webpackDevBin = path.join(__dirname, 'node_modules', '.bin/webpack-dev-server');
   const webpackConfig = path.join(__dirname, 'src/lib', 'webpack.' + lib.action + '.js');
   let subprocess = null;
   if (lib.action === 'work') {
@@ -81,9 +83,9 @@ module.exports = (option) => {
     //   util.print('Please select a dir'.error);
     //   return;
     // }
-    subprocess = spawn(webpackBin + (ISWINDOWS ? '.cmd' : ''), ['--config', webpackConfig], {
+    subprocess = spawn(webpackDevBin + (ISWINDOWS ? '.cmd' : ''), ['--config', webpackConfig], {
       stdio: 'inherit',
-      // env: process.env
+      env: process.env
     });
   }
   subprocess.on('error', (err) => {
