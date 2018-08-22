@@ -1,7 +1,7 @@
 {
   "name": "vika",
   "version": "1.0.2",
-  "description": "webpack",
+  "description": "webpack building tool",
   "bin": {
     "vika": "./bin/vika"
   },
