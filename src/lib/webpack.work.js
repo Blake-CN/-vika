@@ -59,8 +59,13 @@ const webpackConf = {
         }
       }]
     }, {
-      //   test: /\.(shtml|html)$/,
-      //   use: ['html-loader']
+      test: /\.(shtml|html)$/,
+      use: [{
+        loader: 'html-loader',
+        options: {
+          minimize: true
+        }
+      }]
     }]
   },
   plugins: [
