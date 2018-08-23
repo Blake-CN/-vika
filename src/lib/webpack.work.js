@@ -14,6 +14,7 @@ const webpackConf = {
   mode: config.NODE_ENV,
   entry: null,
   target: 'web',
+  devtool: config.NODE_ENV !== 'production' ? 'eval-source-map' : 'none',
   output: {
     path: path.join(config.workingPath, config.development_dist),
     filename: 'js/[name].js',
@@ -66,6 +67,12 @@ const webpackConf = {
           minimize: true
         }
       }]
+    }, {
+      test: /\.js$/,
+      exclude: /(node_modules|bower_components)/,
+      use: {
+        loader: 'babel-loader'
+      }
     }]
   },
   plugins: [
