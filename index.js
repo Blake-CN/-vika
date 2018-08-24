@@ -71,7 +71,7 @@ module.exports = (option) => {
     console.error(colors.error(`path: ${err}`));
     return;
   }
-  console.log(lib);
+  // console.log(lib);
   if (lib.vikarcPath) {
     util.print('Use Config', c => c.magenta(lib.vikarcPath));
   }
