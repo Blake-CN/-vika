@@ -78,7 +78,7 @@ module.exports = (option) => {
   const webpackDevBin = path.join(__dirname, 'node_modules', '.bin/webpack-dev-server');
   const webpackConfig = path.join(__dirname, 'src/lib', 'webpack.' + lib.action + '.js');
   let subprocess = null;
-  if (lib.action === 'work') {
+  if (lib.action === 'build') {
     // if (lib.page === 'all') {
     //   util.print('Please select a dir'.error);
     //   return;
@@ -87,8 +87,8 @@ module.exports = (option) => {
       stdio: 'inherit',
       env: process.env
     });
+    subprocess.on('error', (err) => {
+      console.log('启动子进程失败。', err);
+    });
   }
-  subprocess.on('error', (err) => {
-    console.log('启动子进程失败。', err);
-  });
 };

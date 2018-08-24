@@ -8,13 +8,11 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 const config = require('./index.js');
-const entry = require('./module/entry');
 
 const webpackConf = {
   mode: config.NODE_ENV,
-  entry: null,
+  entry: {},
   target: 'web',
-  devtool: config.NODE_ENV !== 'production' ? 'eval-source-map' : 'none',
   output: {
     path: path.join(config.workingPath, config.development_dist),
     filename: 'js/[name].js',
@@ -30,15 +28,6 @@ const webpackConf = {
   },
   resolveLoader: {
     modules: [path.join(config.root, 'node_modules'), path.join(config.workingPath, 'node_modules'), 'node_modules']
-  },
-  devServer: {
-    contentBase: path.join(config.workingPath, config.development_dist),
-    compress: true,
-    port: 9000,
-    historyApiFallback: true, // 任意的 404 响应都被替代为 index.html
-    inline: true,
-    host: '0.0.0.0' // 服务器外部可访问
-    // open: true
   },
   module: {
     rules: [{
@@ -86,7 +75,16 @@ const webpackConf = {
   // }
 };
 
-webpackConf.entry = entry;
+// 入口文件
+config.pages.forEach((page) => {
+  webpackConf.entry[page] = [path.resolve(
+    config.workingPath,
+    'src',
+    page,
+    page + '.js'
+  )];
+});
+
 // 清空输出文件夹
 webpackConf.plugins.unshift(
   new CleanWebpackPlugin([path.join(config.workingPath, config.development_dist)], {
