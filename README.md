@@ -3,4 +3,5 @@
 ## 用法
 ```
 vika build [page]
+vika deploy
 ```

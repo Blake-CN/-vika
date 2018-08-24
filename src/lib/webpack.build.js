@@ -16,5 +16,5 @@ module.exports = merge(common, {
     inline: true,
     host: '0.0.0.0' // 服务器外部可访问
     // open: true
-  },
+  }
 });

@@ -25,7 +25,20 @@ yarg
       config_file: argv.config,
     }, argv));
   })
+  .command('deploy', '发布', (yargs) => {
+    yargs.option('config', {
+      type: 'string',
+      default: '',
+      describe: 'Use the specified config',
+    });
+  }, (argv) => {
+    lanucher(Object.assign({
+      action: 'deploy',
+      config_file: argv.config,
+    }, argv));
+  })
   .example('$0 build index', 'build index dir with development mode')
+  .example('$0 deploy', 'build all pages with production mode')
   .help('h')
   .alias('h', 'help')
   .version(require('../package.json').version)

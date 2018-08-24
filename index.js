@@ -1,5 +1,5 @@
 const path = require('path');
-const fse = require('fs-extra');
+// const fse = require('fs-extra');
 const Table = require('cli-table');
 const colors = require('colors');
 const {
@@ -59,6 +59,10 @@ module.exports = (option) => {
   process.env.WORKING_PATH = workingPath;
   process.env.PROJECT_ROOT = projectPath;
   process.env.CMD_RUN_PATH = RunPath;
+
+  if (option.action === 'deploy') {
+    process.env.PAGE = 'all';
+  }
   // 读取lib，注意。该require不能提前。依赖上面定义的process.env;
   let lib;
   try {
@@ -89,6 +93,26 @@ module.exports = (option) => {
     });
     subprocess.on('error', (err) => {
       console.log('启动子进程失败。', err);
+    });
+  } else if (lib.action === 'deploy') {
+    const startTs = Date.now();
+    subprocess = spawn(webpackBin + (ISWINDOWS ? '.cmd' : ''), ['--config', webpackConfig], {
+      stdio: 'inherit',
+      env: process.env
+    });
+    subprocess.on('error', (err) => {
+      console.log('启动子进程失败。', err);
+    });
+    subprocess.on('close', (code) => {
+      if (code === 0) {
+        // 打印耗时信息
+        const costTime = ((Date.now() - startTs) / 1000).toFixed(3);
+        const table = new Table();
+        table.push(
+          ['version', require('./package.json').name + ' ' + require('./package.json').version], ['time', costTime + 's'],
+        );
+        util.print(c => c.green('have a nice day!\n' + table));
+      }
     });
   }
 };

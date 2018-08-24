@@ -1,6 +1,6 @@
 'use strict';
 
-const fs = require('fs');
+// const fs = require('fs');
 const path = require('path');
 
 const CleanWebpackPlugin = require('clean-webpack-plugin');
@@ -14,7 +14,7 @@ const webpackConf = {
   entry: {},
   target: 'web',
   output: {
-    path: path.join(config.workingPath, config.development_dist),
+    path: path.join(config.workingPath, config.NODE_ENV === 'production' ? config.production_dist : config.development_dist),
     filename: 'js/[name].js',
     publicPath: '/'
   },
@@ -33,8 +33,7 @@ const webpackConf = {
     rules: [{
       test: /\.(le|c)ss$/,
       use: [
-        // config.NODE_ENV === 'development' ? 'style-loader' : MiniCssExtractPlugin.loader,
-        MiniCssExtractPlugin.loader,
+        config.NODE_ENV === 'development' ? 'style-loader' : MiniCssExtractPlugin.loader,
         'css-loader',
         'postcss-loader'
       ]
@@ -45,7 +44,7 @@ const webpackConf = {
         options: {
           fallback: 'file-loader',
           limit: 8192,
-          name: 'img/[name].[ext]'
+          name: 'img/[name]_[hash:8].[ext]'
         }
       }]
     }, {
@@ -70,9 +69,9 @@ const webpackConf = {
       filename: 'css/[name].css'
     }),
   ],
-  // stats: {
-  //   children: false // 是否显示子任务log
-  // }
+  stats: {
+    children: false // 是否显示子任务log
+  }
 };
 
 // 入口文件
@@ -87,7 +86,7 @@ config.pages.forEach((page) => {
 
 // 清空输出文件夹
 webpackConf.plugins.unshift(
-  new CleanWebpackPlugin([path.join(config.workingPath, config.development_dist)], {
+  new CleanWebpackPlugin([path.join(config.workingPath, config.NODE_ENV === 'production' ? config.production_dist : config.development_dist)], {
     root: config.workingPath,
     verbose: true, // 是否在控制台输出信息
     dry: false // 启用删除文件
